@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recognition Rites — Expand your edges. Keep your spark.</title>
+<meta name="description" content="A guided exploration of awareness, embodiment, and what it means to feel alive. Prototype experience by Bige & Gustavo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0A7E8C;
+    --teal-dark: #065E68;
+    --teal-light: #E8F4F6;
+    --gold: #D4A574;
+    --gold-dark: #B8935A;
+    --cream: #F5F1E8;
+    --cream-dark: #EDE7D9;
+    --coral: #C97B63;
+    --dark: #2C2C2C;
+    --dark-soft: #4A4A4A;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: var(--sans);
+    color: var(--dark);
+    background: var(--cream);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── UTILITIES ── */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .container--wide {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140%;
+    height: 60%;
+    background: radial-gradient(ellipse at center, rgba(10,126,140,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero__logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 0.2s forwards;
+  }
+
+  .hero__title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 500;
+    color: var(--teal);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 0.5s forwards;
+  }
+
+  .hero__tagline {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-dark);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 0.8s forwards;
+  }
+
+  .hero__intro {
+    max-width: 560px;
+    font-size: 1.05rem;
+    color: var(--dark-soft);
+    line-height: 1.85;
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 1.1s forwards;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeUp 1.2s ease-out 1.6s forwards;
+  }
+
+  .hero__scroll svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--gold);
+    animation: bobDown 2.5s ease-in-out infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 5rem 0;
+  }
+
+  .section--teal {
+    background: var(--teal);
+    color: #fff;
+    position: relative;
+  }
+
+  .section--teal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .section--teal::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .section--soft {
+    background: var(--cream-dark);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 1rem;
+  }
+
+  .section--teal .section-label {
+    color: var(--gold);
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 500;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .section--teal .section-title {
+    color: #fff;
+  }
+
+  .section-body {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--dark-soft);
+  }
+
+  .section--teal .section-body {
+    color: rgba(255,255,255,0.88);
+  }
+
+  .section-body p + p {
+    margin-top: 1.2rem;
+  }
+
+  /* ── GOLD DIVIDER ── */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2.5rem 0;
+    border: none;
+  }
+
+  .divider--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── VIDEO EMBED ── */
+  .video-block {
+    margin: 3rem 0;
+    position: relative;
+  }
+
+  .video-block__wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: var(--dark);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(10,126,140,0.12), 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .video-block__wrapper iframe,
+  .video-block__wrapper video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-block__placeholder {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+    color: #fff;
+    cursor: default;
+  }
+
+  .video-block__placeholder svg {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .video-block__placeholder span {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  .video-block__caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--dark-soft);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* ── EPISODE CARDS ── */
+  .episodes {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .episodes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .episode-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .episode-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(10,126,140,0.1);
+  }
+
+  .episode-card__video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  }
+
+  .episode-card__video .video-block__placeholder {
+    border-radius: 0;
+  }
+
+  .episode-card__body {
+    padding: 1.5rem;
+  }
+
+  .episode-card__week {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.4rem;
+  }
+
+  .episode-card__title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+
+  .episode-card__desc {
+    font-size: 0.92rem;
+    color: var(--dark-soft);
+    line-height: 1.7;
+  }
+
+  .episode-card__duration {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold-dark);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── COURSE OVERVIEW / PHASES ── */
+  .phases {
+    margin-top: 2.5rem;
+  }
+
+  .phase {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+  }
+
+  .phase__marker {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 0.2rem;
+  }
+
+  .section--teal .phase__marker {
+    background: var(--gold);
+    color: var(--dark);
+  }
+
+  .phase__content h3 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--teal-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .section--teal .phase__content h3 {
+    color: #fff;
+  }
+
+  .phase__content .phase__weeks {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .section--teal .phase__content .phase__weeks {
+    color: var(--gold);
+  }
+
+  .phase__content p {
+    font-size: 0.95rem;
+    color: var(--dark-soft);
+    line-height: 1.7;
+  }
+
+  .section--teal .phase__content p {
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── INCLUDES LIST ── */
+  .includes {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .includes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .include-item {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .include-item__icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+  }
+
+  .include-item__icon svg {
+    width: 14px;
+    height: 14px;
+    stroke: #fff;
+    stroke-width: 2.5;
+    fill: none;
+  }
+
+  .include-item__text {
+    font-size: 0.95rem;
+    color: var(--dark-soft);
+    line-height: 1.6;
+  }
+
+  .include-item__text strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  /* ── CTA / FEEDBACK ── */
+  .cta-block {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+
+  .cta-block__title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 500;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+
+  .cta-block__body {
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    font-size: 1.05rem;
+    color: var(--dark-soft);
+    line-height: 1.8;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 16px rgba(10,126,140,0.2);
+  }
+
+  .cta-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+  }
+
+  /* ── QUOTE / CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(212,165,116,0.06);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .callout p {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--dark);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(212,165,116,0.3);
+  }
+
+  .footer__logo {
+    width: 80px;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .footer__text {
+    font-size: 0.85rem;
+    color: var(--dark-soft);
+    opacity: 0.6;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bobDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .hero { padding: 3rem 1.5rem; }
+    .hero__logo { width: 150px; }
+    section { padding: 3.5rem 0; }
+    .phase { flex-direction: column; gap: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════ -->
+<section class="hero">
+  <!-- LOGO: Replace src with your hosted logo URL -->
+  <img class="hero__logo" src="logo.png" alt="Recognition Rites">
+  <h1 class="hero__title">Recognition Rites</h1>
+  <p class="hero__tagline">Expand your edges. Keep your spark.</p>
+  <p class="hero__intro">
+    You're seeing this because we trust your perspective. We've been building something 
+    and we want you to experience it before it goes anywhere else. This is a prototype — 
+    your honest response shapes what this becomes.
+  </p>
+  <div class="hero__scroll">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TEASER VIDEO -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section--soft" id="teaser">
+  <div class="container reveal">
+    <p class="section-label">A Short Invitation</p>
+    <h2 class="section-title">Who we are & where this comes from</h2>
+    <div class="section-body">
+      <p>
+        Bige and Gustavo have each spent years exploring different paths of consciousness — 
+        Christian mysticism, Kabbalah, shamanic practices, yogic philosophy, somatic psychology, 
+        Ayurveda. What brought these traditions into conversation with each other, in the body, 
+        in relationship, in everyday life — was unexpected.
+      </p>
+    </div>
+
+    <div class="video-block">
+      <div class="video-block__wrapper">
+        <iframe src="https://rumble.com/embed/v7585ve/?pub=4p1zn2" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p class="video-block__caption">3 minutes · Filmed in India, 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- EPISODES -->
+<!-- ═══════════════════════════════════════ -->
+<section id="episodes">
+  <div class="container--wide reveal">
+    <p class="section-label">Experience the Work</p>
+    <h2 class="section-title">Two full episodes to explore</h2>
+    <div class="section-body">
+      <p>
+        These are complete sessions from the course — not teasers, not highlights. 
+        Watch one or both. Let your body respond before your mind decides.
+      </p>
+    </div>
+
+    <div class="episodes">
+      <!-- EPISODE 1: Week 5 (shown first — more accessible entry) -->
+      <div class="episode-card">
+        <div class="episode-card__video">
+          <div class="video-block__placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="rgba(255,255,255,0.3)"/>
+            </svg>
+            <span>Episode Video</span>
+          </div>
+        </div>
+        <div class="episode-card__body">
+          <h3 class="episode-card__title">Desire as Navigation</h3>
+          <p class="episode-card__desc">
+            What if desire isn't something to manage or overcome — but your most honest 
+            compass? This episode explores the difference between craving and calling, 
+            and how your body already knows which is which.
+          </p>
+          <span class="episode-card__duration">~38 min · Led by Bige</span>
+        </div>
+      </div>
+
+      <!-- EPISODE 2: Week 3 -->
+      <div class="episode-card">
+        <div class="episode-card__video">
+          <div class="video-block__placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3" fill="rgba(255,255,255,0.3)"/>
+            </svg>
+            <span>Episode Video</span>
+          </div>
+        </div>
+        <div class="episode-card__body">
+          <h3 class="episode-card__title">Removing the Lenses</h3>
+          <p class="episode-card__desc">
+            You are not your identity. Identity is what you learned to be. This episode 
+            uncovers the veils of insufficiency, separation, and control — and what's 
+            underneath them when they drop.
+          </p>
+          <span class="episode-card__duration">~45 min · Led by Gustavo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- WHAT THIS IS -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section--teal" id="about">
+  <div class="container reveal">
+    <p class="section-label">What This Becomes</p>
+    <h2 class="section-title">A 12-week initiatory journey</h2>
+    <div class="section-body">
+      <p>
+        Recognition Rites is a guided exploration of awareness, embodiment, and what it means 
+        to experience life as a sacred game — not something to win, but something to 
+        participate in fully. Through nervous system literacy, psychological precision, and 
+        embodied practice, we restore coherence between mind, body, and perception.
+      </p>
+      <p>
+        The course follows a hidden rhythm — five phases that move from awakening through 
+        stabilizing, dissolving, integrating, and finally embodiment. You won't need to know the 
+        architecture to feel it working.
+      </p>
+    </div>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="phase__marker">1</div>
+        <div class="phase__content">
+          <p class="phase__weeks">Weeks 1–3</p>
+          <h3>Awakening</h3>
+          <p>Return to the body. Discover the orchestra within. Begin removing the lenses that filter reality before you feel it.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase__marker">2</div>
+        <div class="phase__content">
+          <p class="phase__weeks">Weeks 4–6</p>
+          <h3>Stabilizing</h3>
+          <p>Learn your nervous system's terrain. Reclaim desire as navigation. Discover that ease is intelligence, not laziness.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase__marker">3</div>
+        <div class="phase__content">
+          <p class="phase__weeks">Weeks 7–9</p>
+          <h3>Dissolving</h3>
+          <p>Let the old self die. Integrate your shadow. Walk through the doorway where you're most afraid to go.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase__marker">4</div>
+        <div class="phase__content">
+          <p class="phase__weeks">Weeks 10–11</p>
+          <h3>Integrating</h3>
+          <p>Bring this into relationship. Find your inner authority. Live from your own north star.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase__marker">5</div>
+        <div class="phase__content">
+          <p class="phase__weeks">Week 12</p>
+          <h3>Embodiment</h3>
+          <p>You are the medicine. Life is the ritual. Playfulness as spiritual maturity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- WHAT'S INCLUDED -->
+<!-- ═══════════════════════════════════════ -->
+<section id="included">
+  <div class="container reveal">
+    <p class="section-label">The Experience Includes</p>
+    <h2 class="section-title">More than a course</h2>
+
+    <div class="includes">
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Weekly video teachings</strong> — 30–40 min of concept, story, and direct transmission</p>
+      </div>
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Guided somatic practices</strong> — 20–30 min of movement, breath, and embodied exploration</p>
+      </div>
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Integration prompts</strong> — journaling, micro-practices, and real-life experiments</p>
+      </div>
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Weekly community circle</strong> — 90 min live, facilitated sharing and nervous system co-regulation</p>
+      </div>
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Private community</strong> — ongoing connection, support, and practice between sessions</p>
+      </div>
+      <div class="include-item">
+        <div class="include-item__icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p class="include-item__text"><strong>Optional 1-on-1 coaching</strong> — personal space holding with Gus or Bige</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top: 3rem;">
+      <p>
+        This is not self-improvement. It's a shift in how you meet life. From seriousness 
+        to sincerity. From effort to curiosity. From surviving the game to realizing 
+        you were always allowed to play.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FEEDBACK CTA -->
+<!-- ═══════════════════════════════════════ -->
+<section class="section--soft" id="respond">
+  <div class="cta-block reveal">
+    <h2 class="cta-block__title">Your response shapes this</h2>
+    <p class="cta-block__body">
+      We're not looking for polite encouragement. We want to know what landed, 
+      what didn't, and what your body felt. As a thank-you for going deep with us, 
+      we'll share something back.
+    </p>
+    <!-- REPLACE: Link to your Google Form or Tally feedback form -->
+    <a href="#FEEDBACK_FORM_URL" class="cta-btn">Share Your Response</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════ -->
+<footer class="footer">
+  <img class="footer__logo" src="logo.png" alt="Recognition Rites">
+  <p class="footer__text">Recognition Rites · 2026</p>
+</footer>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SCROLL REVEAL -->
+<!-- ═══════════════════════════════════════ -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  });
+</script>
+
+</body>
+</html>
