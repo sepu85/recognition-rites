@@ -633,6 +633,48 @@
       </div>
       <p class="video-block__caption">3 minutes · Filmed in India, 2026</p>
     </div>
+
+    <!-- Email Capture — Variant A -->
+    <div style="max-width: 520px; margin: 2.5rem auto 0; padding: 0 2rem; text-align: center;">
+      <div style="width: 50px; height: 2px; background: #D4A574; margin: 0 auto 1.2rem;"></div>
+      <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.5rem; font-weight: 500; color: #0A7E8C; margin: 0 0 0.4rem;">
+        Something here for you?
+      </h3>
+      <p style="font-size: 0.92rem; color: #666; margin: 0 0 1.4rem; line-height: 1.7;">
+        Leave your email. We'll reach out when this opens.
+      </p>
+      <form class="email-capture-form" onsubmit="handleEmailSubmit(event, this)" style="display: flex; gap: 8px; max-width: 400px; margin: 0 auto;">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          required
+          class="email-input"
+          style="
+            flex: 1; padding: 12px 16px;
+            border: 1px solid #ddd; border-radius: 6px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+            background: #fff; color: #2C2C2C; outline: none;
+            transition: border-color 0.2s; min-width: 0;
+          "
+          onfocus="this.style.borderColor='#0A7E8C'"
+          onblur="this.style.borderColor='#ddd'"
+        />
+        <button
+          type="submit"
+          class="email-btn"
+          style="
+            padding: 12px 20px; border: none; border-radius: 6px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
+            cursor: pointer; background: #0A7E8C; color: #fff;
+            white-space: nowrap; transition: all 0.3s;
+          "
+          onmouseenter="this.style.background='#065E68'"
+          onmouseleave="this.style.background='#0A7E8C'"
+        >Stay close</button>
+      </form>
+      <p class="email-status" style="font-size: 0.82rem; margin: 0.8rem 0 0; min-height: 1.2em; color: #666;"></p>
+    </div>
+
   </div>
 </section>
 
@@ -804,10 +846,51 @@
 
     <div class="callout" style="margin-top: 3rem;">
       <p>
-        This is not self-improvement. It's a shift in how you meet life. From seriousness 
-        to sincerity. From effort to curiosity. From surviving the game to realizing 
+        This is not self-improvement. It's a shift in how you meet life. From seriousness
+        to sincerity. From effort to curiosity. From surviving the game to realizing
         you were always allowed to play.
       </p>
+    </div>
+
+    <!-- Email Capture — Variant B -->
+    <div style="max-width: 520px; margin: 2.5rem auto 0; padding: 0 2rem; text-align: center;">
+      <div style="width: 50px; height: 2px; background: #D4A574; margin: 0 auto 1.2rem;"></div>
+      <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.5rem; font-weight: 500; color: #0A7E8C; margin: 0 0 0.4rem;">
+        Want to be part of this?
+      </h3>
+      <p style="font-size: 0.92rem; color: #666; margin: 0 0 1.4rem; line-height: 1.7;">
+        Leave your email and we'll let you know when Recognition Rites opens its doors.
+      </p>
+      <form class="email-capture-form" onsubmit="handleEmailSubmit(event, this)" style="display: flex; gap: 8px; max-width: 400px; margin: 0 auto;">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          required
+          class="email-input"
+          style="
+            flex: 1; padding: 12px 16px;
+            border: 1px solid #ddd; border-radius: 6px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.92rem;
+            background: #fff; color: #2C2C2C; outline: none;
+            transition: border-color 0.2s; min-width: 0;
+          "
+          onfocus="this.style.borderColor='#0A7E8C'"
+          onblur="this.style.borderColor='#ddd'"
+        />
+        <button
+          type="submit"
+          class="email-btn"
+          style="
+            padding: 12px 20px; border: none; border-radius: 6px;
+            font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
+            cursor: pointer; background: #0A7E8C; color: #fff;
+            white-space: nowrap; transition: all 0.3s;
+          "
+          onmouseenter="this.style.background='#065E68'"
+          onmouseleave="this.style.background='#0A7E8C'"
+        >Keep me close</button>
+      </form>
+      <p class="email-status" style="font-size: 0.82rem; margin: 0.8rem 0 0; min-height: 1.2em; color: #666;"></p>
     </div>
   </div>
 </section>
@@ -854,6 +937,51 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => observer.observe(el));
   });
+</script>
+
+<script>
+// Email capture — Google Sheets integration (shared handler for all forms)
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBE8FoIlHAUJxUEtC9PxUcfLxoTzdHNma5axqOmq3nH8t-NeJKPGSz6hmyQsdPqRcM/exec';
+
+async function handleEmailSubmit(e, formEl) {
+  e.preventDefault();
+
+  var input = formEl.querySelector('.email-input');
+  var btn = formEl.querySelector('.email-btn');
+  var status = formEl.nextElementSibling;
+  var email = input.value.trim();
+
+  if (!email) return;
+
+  var originalText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  try {
+    await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ email: email, timestamp: new Date().toISOString() })
+    });
+
+    btn.textContent = 'You\u2019re in \u2713';
+    btn.style.opacity = '1';
+    status.textContent = 'Welcome. We\u2019ll be in touch.';
+    status.style.color = '#0A7E8C';
+    input.value = '';
+    input.disabled = true;
+    btn.disabled = true;
+
+  } catch (err) {
+    btn.textContent = originalText;
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    status.textContent = 'Something went wrong. Try again or email us directly.';
+    status.style.color = '#C97B63';
+  }
+}
 </script>
 
 </body>
