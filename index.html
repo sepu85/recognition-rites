@@ -23,6 +23,13 @@
 <meta name="twitter:image" content="https://recognitionrites.com/og-preview.png">
 
 <link rel="icon" type="image/png" href="logo.png">
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/d67y24935e.js" async type="module"></script>
+<script src="https://fast.wistia.com/embed/sxtofippgl.js" async type="module"></script>
+<style>
+  wistia-player[media-id='d67y24935e']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/d67y24935e/swatch'); display: block; filter: blur(5px); padding-top: 56.25%; }
+  wistia-player[media-id='sxtofippgl']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/sxtofippgl/swatch'); display: block; filter: blur(5px); padding-top: 56.25%; }
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -265,7 +272,8 @@
 
   .video-block__wrapper iframe,
   .video-block__wrapper video,
-  .episode-card__video iframe {
+  .episode-card__video iframe,
+  .episode-card__video wistia-player {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
@@ -714,7 +722,7 @@
       <!-- EPISODE 1: Desire as Navigation -->
       <div class="episode-card">
         <div class="episode-card__video">
-          <iframe src="https://www.youtube.com/embed/CgVZtaPPqm4?si=qhW4JsytTzEujk57" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <wistia-player media-id="d67y24935e" aspect="1.7777777777777777"></wistia-player>
         </div>
         <div class="episode-card__body">
           <h3 class="episode-card__title">Desire as Creative Current</h3>
@@ -730,7 +738,7 @@
       <!-- EPISODE 2: Removing the Lenses -->
       <div class="episode-card">
         <div class="episode-card__video">
-          <iframe src="https://www.youtube.com/embed/Sb1CBWuvZ3A?si=wqFU1PAyPg_H04Tr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <wistia-player media-id="sxtofippgl" aspect="1.7777777777777777"></wistia-player>
         </div>
         <div class="episode-card__body">
           <h3 class="episode-card__title">Removing the Lenses</h3>
