@@ -973,8 +973,8 @@
 </script>
 
 <script>
-// Email capture — Google Sheets integration (shared handler for all forms)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwTKeiH8i9iwEyuLI1JqQmz8OpjNjBwogixcEMJHItOc0_u5fTU_eb_zrsxkABaSlIV/exec';
+// Email capture — Web3Forms integration (shared handler for all forms)
+const WEB3FORMS_ACCESS_KEY = '3e8ca4f6-7948-4cfa-8427-8333b57d17ea';
 
 async function handleEmailSubmit(e, formEl) {
   e.preventDefault();
@@ -992,12 +992,20 @@ async function handleEmailSubmit(e, formEl) {
   btn.style.opacity = '0.7';
 
   try {
-    await fetch(GOOGLE_SCRIPT_URL, {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ email: email, timestamp: new Date().toISOString() })
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        email: email,
+        subject: 'New Recognition Rites sign-up',
+        from_name: 'Recognition Rites — Stay close',
+        source: 'home',
+        botcheck: ''
+      })
     });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Submission failed');
 
     btn.textContent = 'You\u2019re in \u2713';
     btn.style.opacity = '1';
